@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>庭の観察Webアプリ実験</title>
+  <!-- Leaflet（地図ライブラリ）の読み込み -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    /* 画面全体に地図を表示 */
+    #map { width: 100%; height: 100vh; margin: 0; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    // 1. 画像のピクセルサイズ（縦横の比率）に合わせてキャンバスを設定
+    var map = L.map('map', {
+      crs: L.CRS.Simple, // 緯度経度ではなく平面画像として扱う設定
+      minZoom: -1
+    });
+
+    // 2. 画像の範囲（Y座標, X座標）を定義
+    var bounds = [[0, 0], [1000, 1000]];
+    
+    // 3. 画像を背景として読み込み（※ここに自分の画像名を指定）
+    var image = L.imageOverlay('niwa.jpg', bounds).addTo(map);
+
+    // 4. 初期表示の位置とズーム倍率を設定
+    map.fitBounds(bounds);
+
+    // 5. 画像の上に観察ピン（マーカー）を立てる！
+    // ピン1：庭の中央付近
+    var marker1 = L.marker([516.3880315429676, 489.74520275604704]).addTo(map);
+    marker1.bindPopup("<b>この花</b><br>水やりよろしく。");
+
+    // ピン2：庭の左下付近
+    var marker2 = L.marker([462.1722633118827, 768.9428794712879]).addTo(map);
+    marker2.bindPopup("<b>ブルーベリーエリア</b><br>腐食層が乏しいので、芝生や雑草の葉っぱ、落枝などを表土に被せて");
+
+    // 6. クリックした場所の画像座標をログに出す（ピン追加の実験用）
+    map.on('click', function(e) {
+      alert("クリックした位置の座標: " + e.latlng.lat + ", " + e.latlng.lng);
+    });
+  </script>
+</body>
+</html>
