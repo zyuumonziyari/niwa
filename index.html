@@ -33,7 +33,13 @@
     // 5. 画像の上に観察ピン（マーカー）を立てる！
     // ピン1：庭の中央付近
     var marker1 = L.marker([516.3880315429676, 489.74520275604704]).addTo(map);
-    marker1.bindPopup("<b>この花</b><br>水やりよろしく。");
+    marker1.bindPopup(`
+      <div style="text-align: center;">
+        <b style="font-size: 14px;">コブシの木</b><br>
+        <img src="tree.jpg" style="width: 100%; max-width: 200px; height: auto; border-radius: 6px; margin-top: 6px;">
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #555;">8/21 害虫チェック完了。経過観察中。</p>
+      </div>
+    `);
 
     // ピン2：庭の左下付近
     var marker2 = L.marker([462.1722633118827, 768.9428794712879]).addTo(map);
